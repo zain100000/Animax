@@ -4,9 +4,9 @@ const Anime = require("../models/anime.model");
 const cloudinaryUpload = require("../utilities/cloudinary/cloudinary.utility");
 
 /**
- * @desc    Create a new episode for a season with optional video upload
- * @route   POST /api/season/:seasonId/episode
- * @access  Private/SuperAdmin
+ * @desc   Add a new episode to a season
+ * @route  POST /api/episode/add-episode/:seasonId
+ * @access Private/SuperAdmin
  */
 exports.addEpisode = async (req, res) => {
   try {
@@ -113,9 +113,9 @@ exports.addEpisode = async (req, res) => {
 };
 
 /**
- * @desc   Get all episodes for a season
- * @route  GET /api/season/:seasonId/episodes
- * @access Private/SuperAdmin
+ * @desc   Get all episodes for a specific season
+ * @route  GET /api/episode/get-episodes-by-season/:seasonId
+ * @access Public
  */
 exports.getEpisodesBySeason = async (req, res) => {
   try {
@@ -142,9 +142,9 @@ exports.getEpisodesBySeason = async (req, res) => {
 };
 
 /**
- * @desc   Get a specific episode by ID
- * @route  GET /api/episode/:id
- * @access Private/SuperAdmin
+ * @desc   Get episode by ID
+ * @route  GET /api/episode/get-episode-by-id/:episodeId
+ * @access Public
  */
 exports.getEpisodeById = async (req, res) => {
   try {
@@ -167,8 +167,8 @@ exports.getEpisodeById = async (req, res) => {
 };
 
 /**
- * @desc   Update an episode including video
- * @route  PUT /api/episode/:id
+ * @desc   Update an existing episode
+ * @route  PATCH /api/episode/update-episode/:episodeId
  * @access Private/SuperAdmin
  */
 exports.updateEpisode = async (req, res) => {
@@ -220,7 +220,7 @@ exports.updateEpisode = async (req, res) => {
 
 /**
  * @desc   Delete an episode
- * @route  DELETE /api/episode/:id
+ * @route  DELETE /api/episode/delete-episode/:episodeId
  * @access Private/SuperAdmin
  */
 exports.deleteEpisode = async (req, res) => {

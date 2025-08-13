@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+/**
+ * @description Episode model schema
+ */
 const EpisodeSchema = new mongoose.Schema(
   {
     episodeNumber: {

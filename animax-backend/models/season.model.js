@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+/**
+ * @description Season model schema
+ */
 const SeasonSchema = new mongoose.Schema(
   {
     seasonNumber: {

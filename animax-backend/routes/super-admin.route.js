@@ -4,36 +4,50 @@ const protect = require("../middlewares/auth.middleware");
 const profilePictureUpload = require("../utilities/cloudinary/cloudinary.utility");
 const superAdminController = require("../controllers/super-admin.controller");
 
-// Route to register a new SuperAdmin (handles profile picture upload)
+/**
+ * @desc    Route to register a SuperAdmin
+ * @access  Private/SuperAdmin
+ */
 router.post(
   "/signup-super-admin",
   profilePictureUpload.upload,
   superAdminController.registerSuperAdmin
 );
 
-// Route to log in a SuperAdmin
+/**
+ * @desc    Route to login a SuperAdmin
+ * @access  Private/SuperAdmin
+ */
 router.post("/signin-super-admin", superAdminController.loginSuperAdmin);
 
-// Route to fetch a SuperAdmin by ID (requires authentication)
+/**
+ * @desc    Route to get all SuperAdmins
+ * @access  Private/SuperAdmin
+ */
 router.get(
   "/get-super-admin-by-id/:id",
   protect,
   superAdminController.getSuperAdminById
 );
 
-// Route to reset a SuperAdmin's password (requires authentication)
+/**
+ * @desc    Route to update SuperAdmin profile
+ * @access  Private/SuperAdmin
+ */
 router.patch(
   "/reset-super-admin-password",
   protect,
   superAdminController.resetSuperAdminPassword
 );
 
-// Route to log out a SuperAdmin (requires authentication)
+/**
+ * @desc    Route to logout SuperAdmin
+ * @access  Private/SuperAdmin
+ */
 router.post(
   "/logout-super-admin",
   protect,
   superAdminController.logoutSuperAdmin
 );
-
 
 module.exports = router;

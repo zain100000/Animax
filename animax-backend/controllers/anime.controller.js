@@ -5,7 +5,7 @@ const cloudinaryUpload = require("../utilities/cloudinary/cloudinary.utility");
 
 /**
  * @desc    Add a new anime with required cover upload
- * @route   POST /api/anime
+ * @route   POST /api/anime/add-anime
  * @access  Private/SuperAdmin
  */
 exports.addAnime = async (req, res) => {
@@ -17,7 +17,7 @@ exports.addAnime = async (req, res) => {
       });
     }
 
-    const { title, description, genres, status, releaseDate, rating } =
+    const { title, description, genres, status, releaseDate, rating, studio } =
       req.body;
 
     // Check if anime exists
@@ -51,6 +51,7 @@ exports.addAnime = async (req, res) => {
       status,
       releaseDate,
       rating,
+      studio,
       animeCover: coverUpload.url,
     });
 
@@ -70,8 +71,8 @@ exports.addAnime = async (req, res) => {
 
 /**
  * @desc   Get all anime with optional status filter
- * @route  GET /api/anime
- * @access Private/SuperAdmin
+ * @route  GET /api/anime/get-all-anime
+ * @access Public
  *
  */
 
@@ -110,13 +111,13 @@ exports.getAllAnime = async (req, res) => {
 
 /**
  * @desc    Get anime by ID with populated seasons and episodes
- * @route   GET /api/anime/:id
- * @access  Private/SuperAdmin
+ * @route   GET /api/anime/get-anime-by-id/:animeId
+ * @access  Public
  */
 
 exports.getAnimeById = async (req, res) => {
   try {
-    const anime = await Anime.findById(req.params.id)
+    const anime = await Anime.findById(req.params.animeId)
       .populate({
         path: "seasons",
         options: { sort: { seasonNumber: 1 } },
@@ -152,7 +153,7 @@ exports.getAnimeById = async (req, res) => {
 
 /**
  * @desc    Update anime including cover image
- * @route   PUT /api/anime/:id
+ * @route   PUT /api/anime/update-anime/:animeId
  * @access  Private/SuperAdmin
  */
 exports.updateAnime = async (req, res) => {
@@ -164,7 +165,7 @@ exports.updateAnime = async (req, res) => {
       });
     }
 
-    const anime = await Anime.findById(req.params.id);
+    const anime = await Anime.findById(req.params.animeId);
     if (!anime) {
       return res
         .status(404)
@@ -191,6 +192,7 @@ exports.updateAnime = async (req, res) => {
     anime.status = req.body.status || anime.status;
     anime.releaseDate = req.body.releaseDate || anime.releaseDate;
     anime.rating = req.body.rating || anime.rating;
+    anime.studio = req.body.studio || anime.studio;
 
     const updatedAnime = await anime.save();
     res.status(200).json({
@@ -206,7 +208,7 @@ exports.updateAnime = async (req, res) => {
 
 /**
  * @desc    Delete anime and all related seasons and episodes
- * @route   DELETE /api/anime/:id
+ * @route   DELETE /api/anime/delete-anime/:animeId
  * @access  Private/SuperAdmin
  */
 exports.deleteAnime = async (req, res) => {
@@ -219,7 +221,7 @@ exports.deleteAnime = async (req, res) => {
     }
 
     // Populate seasons and episodes arrays from Anime document
-    const anime = await Anime.findById(req.params.id)
+    const anime = await Anime.findById(req.params.animeId)
       .populate("seasons")
       .populate("episodes");
 

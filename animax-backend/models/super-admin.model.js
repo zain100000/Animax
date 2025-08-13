@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
-// Define the schema for the SuperAdmin model
+/**
+ * @description Super Admin model schema
+ */
 const superAdminSchema = new mongoose.Schema({
   profilePicture: {
     type: String,

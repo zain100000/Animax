@@ -7,8 +7,8 @@ A Node.js RESTful API for managing the Animax Anime app’s operations including
 - User Authentication (JWT)
 - Role-based Access Control (Admin & Viewer)
 - Anime Title Management (CRUD)
-- Watchlist & Favorites Management
-- Review and Rating System
+- Watchlist & Recently Watched Management
+- Commenting System(User can comment on episodes)
 - API Documentation with Postman
 - Environment-based Configuration
 - Error Handling and Logging

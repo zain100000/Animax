@@ -4,7 +4,10 @@ const protect = require("../middlewares/auth.middleware");
 const animeImageUpload = require("../utilities/cloudinary/cloudinary.utility");
 const animeController = require("../controllers/anime.controller");
 
-// Route to add anime
+/**
+ * @desc    Route to add anime
+ * @access  Private
+ */
 router.post(
   "/add-anime",
   protect,
@@ -12,21 +15,33 @@ router.post(
   animeController.addAnime
 );
 
-// Route to get all anime
+/**
+ * @desc    Route to get all anime
+ * @access  Public
+ */
 router.get("/get-all-anime", protect, animeController.getAllAnime);
 
-// Route to get anime by id
-router.get("/get-anime-by-id/:id", protect, animeController.getAnimeById);
+/**
+ * @desc    Route to get anime by ID
+ * @access  Public
+ */
+router.get("/get-anime-by-id/:animeId", protect, animeController.getAnimeById);
 
-// Route to update anime
+/**
+ * @desc    Route to update anime
+ * @access  Private/SuperAdmin
+ */
 router.patch(
-  "/update-anime/:id",
+  "/update-anime/:animeId",
   protect,
   animeImageUpload.upload,
   animeController.updateAnime
 );
 
-// Route to delete anime
-router.delete("/delete-anime/:id", protect, animeController.deleteAnime);
+/**
+ * @desc    Route to delete anime
+ * @access  Private/SuperAdmin
+ */
+router.delete("/delete-anime/:animeId", protect, animeController.deleteAnime);
 
 module.exports = router;

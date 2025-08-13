@@ -4,7 +4,10 @@ const protect = require("../middlewares/auth.middleware");
 const seasonImageUpload = require("../utilities/cloudinary/cloudinary.utility");
 const seasonController = require("../controllers/season.controller");
 
-// Route to add season
+/**
+ * @desc    Route to add season
+ * @access  Private/SuperAdmin
+ */
 router.post(
   "/add-season/:animeId",
   protect,
@@ -12,13 +15,25 @@ router.post(
   seasonController.addSeason
 );
 
-// Route to get all seasons for anime
-router.get("/get-all-seasons-by-anime/:animeId", seasonController.getSeasonsByAnime);
+/**
+ * @desc    Route to get all seasons by anime ID
+ * @access  Public
+ */
+router.get(
+  "/get-all-seasons-by-anime/:animeId",
+  seasonController.getSeasonsByAnime
+);
 
-// Route to get season by id
+/**
+ * @desc    Route to get season by ID
+ * @access  Public
+ */
 router.get("/get-season-by-id/:seasonId", seasonController.getSeasonById);
 
-// Route to update season
+/**
+ * @desc    Route to update season
+ * @access  Private/SuperAdmin
+ */
 router.patch(
   "/update-season/:seasonId",
   protect,
@@ -26,7 +41,14 @@ router.patch(
   seasonController.updateSeason
 );
 
-// Route to delete season
-router.delete("/delete-season/:seasonId", protect, seasonController.deleteSeason);
+/**
+ * @desc    Route to delete season
+ * @access  Private/SuperAdmin
+ */
+router.delete(
+  "/delete-season/:seasonId",
+  protect,
+  seasonController.deleteSeason
+);
 
 module.exports = router;

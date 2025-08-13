@@ -2,6 +2,9 @@ const multer = require("multer");
 const { v2: cloudinary } = require("cloudinary");
 require("dotenv").config();
 
+/**
+ * @description: Utility functions for handling file uploads to Cloudinary
+ **/
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -10,6 +13,9 @@ cloudinary.config({
 
 const storage = multer.diskStorage({});
 
+/**
+ * @description: File filter to validate uploaded files
+ */
 const fileFilter = (req, file, cb) => {
   if (!file) {
     return cb(new Error("No file uploaded."), false);
@@ -38,6 +44,9 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+/**
+ * @description: Multer configuration for handling multiple file uploads
+ */
 const upload = multer({
   storage,
   fileFilter,
@@ -48,6 +57,9 @@ const upload = multer({
   { name: "animeEpisode", maxCount: 1 },
 ]);
 
+/**
+ * @description: Middleware to check if files were uploaded
+ */
 const checkUploadedFiles = (req, res, next) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res
@@ -57,6 +69,9 @@ const checkUploadedFiles = (req, res, next) => {
   next();
 };
 
+/**
+ * @description: Uploads a file to Cloudinary based on the type and other parameters
+ */
 const uploadToCloudinary = async (
   file,
   type,
@@ -103,7 +118,7 @@ const uploadToCloudinary = async (
 };
 
 /**
- * Delete entire anime folder
+ * @description: Deletes an entire folder and its contents from Cloudinary
  */
 const deleteFromCloudinary = async (animeTitle) => {
   try {
@@ -143,7 +158,7 @@ const deleteFromCloudinary = async (animeTitle) => {
 };
 
 /**
- * Delete a single file from Cloudinary by its URL
+ * @description: Deletes a single file from Cloudinary using its URL
  */
 const deleteSingleFromCloudinary = async (fileUrl) => {
   try {

@@ -4,7 +4,10 @@ const protect = require("../middlewares/auth.middleware");
 const episodeVideoUpload = require("../utilities/cloudinary/cloudinary.utility");
 const episodeController = require("../controllers/episode.controller");
 
-// Route to add episode
+/**
+ * @desc    Route to add episode
+ * @access  Private/SuperAdmin
+ */
 router.post(
   "/add-episode/:seasonId",
   protect,
@@ -12,16 +15,25 @@ router.post(
   episodeController.addEpisode
 );
 
-// Route to get all episodes for season
+/**
+ * @desc    Route to get all episodes
+ * @access  Public
+ */
 router.get(
   "/get-episodes-by-season/:seasonId",
   episodeController.getEpisodesBySeason
 );
 
-// Route to get episode by id
+/**
+ * @desc    Route to get episode by ID
+ * @access  Public
+ */
 router.get("/get-episode-by-id/:episodeId", episodeController.getEpisodeById);
 
-// Route to update episode
+/**
+ * @desc    Route to update episode
+ * @access  Private/SuperAdmin
+ */
 router.patch(
   "/update-episode/:episodeId",
   protect,
@@ -29,7 +41,14 @@ router.patch(
   episodeController.updateEpisode
 );
 
-// Route to delete episode
-router.delete("/delete-episode/:episodeId", protect, episodeController.deleteEpisode);
+/**
+ * @desc    Route to delete episode
+ * @access  Private/SuperAdmin
+ */
+router.delete(
+  "/delete-episode/:episodeId",
+  protect,
+  episodeController.deleteEpisode
+);
 
 module.exports = router;

@@ -4,9 +4,9 @@ const Episode = require("../models/episode.model");
 const cloudinaryUpload = require("../utilities/cloudinary/cloudinary.utility");
 
 /**
- * @desc    Add a new season for an anime with required cover image
- * @route   POST /api/anime/:animeId/season
- * @access  Private/SuperAdmin
+ * @desc   Add a new season to an anime
+ * @route  POST /api/season/add-season/:animeId
+ * @access Private/SuperAdmin
  */
 exports.addSeason = async (req, res) => {
   try {
@@ -82,8 +82,8 @@ exports.addSeason = async (req, res) => {
 
 /**
  * @desc   Get all seasons for a specific anime
- * @route  GET /api/anime/:animeId/seasons
- * @access Private/SuperAdmin
+ * @route  GET /api/seasons/get-all-seasons-by-anime/:animeId
+ * @access Public
  */
 exports.getSeasonsByAnime = async (req, res) => {
   try {
@@ -115,9 +115,9 @@ exports.getSeasonsByAnime = async (req, res) => {
 };
 
 /**
- * @desc   Get a specific season by ID
- * @route  GET /api/seasons/:id
- * @access Private/SuperAdmin
+ * @desc   Get a season by ID with populated episodes and anime
+ * @route  GET /api/seasons/get-season-by-id/:seasonId
+ * @access Public
  */
 exports.getSeasonById = async (req, res) => {
   try {
@@ -153,9 +153,9 @@ exports.getSeasonById = async (req, res) => {
 };
 
 /**
- * @desc   Update a season by ID with optional cover image
- * @route  PUT /api/seasons/:id
- * @access Private/SuperAdmin
+ * @desc    Update a season
+ * @route   PATCH /api/seasons/update-season/:seasonId
+ * @access  Private/SuperAdmin
  */
 exports.updateSeason = async (req, res) => {
   try {
@@ -202,7 +202,7 @@ exports.updateSeason = async (req, res) => {
 
 /**
  * @desc    Delete a season and all its episodes
- * @route   DELETE /api/seasons/:id
+ * @route   DELETE /api/seasons/delete-season/:seasonId
  * @access  Private/SuperAdmin
  */
 exports.deleteSeason = async (req, res) => {

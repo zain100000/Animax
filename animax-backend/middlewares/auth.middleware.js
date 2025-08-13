@@ -1,6 +1,11 @@
 const jwt = require("jsonwebtoken");
 const SuperAdmin = require("../models/super-admin.model");
+const User = require("../models/user.model");
 
+/**
+ * @description Middleware to authenticate user based on JWT token
+ * @authorization Bearer token
+ */
 const authMiddleware = async (req, res, next) => {
   try {
     // Get Authorization header and check for Bearer token
@@ -17,17 +22,25 @@ const authMiddleware = async (req, res, next) => {
     const jwtToken = authHeader.split(" ")[1];
     const decodedToken = jwt.verify(jwtToken, process.env.JWT_SECRET);
 
-    // Validate token structure and role
-    if (!decodedToken?.user?.id || decodedToken?.role !== "SUPERADMIN") {
+    // Validate token structure
+    if (!decodedToken?.user?.id || !decodedToken?.role) {
       return res
         .status(401)
-        .json({ success: false, message: "Invalid Token Structure or Role" });
+        .json({ success: false, message: "Invalid Token Structure" });
     }
 
-    // Fetch super admin user from DB without password
-    const user = await SuperAdmin.findById(decodedToken.user.id).select(
-      "-password"
-    );
+    let user;
+    if (decodedToken.role === "SUPERADMIN") {
+      user = await SuperAdmin.findById(decodedToken.user.id).select(
+        "-password"
+      );
+    } else if (decodedToken.role === "USER") {
+      user = await User.findById(decodedToken.user.id).select("-password");
+    } else {
+      return res
+        .status(403)
+        .json({ success: false, message: "Unauthorized Role" });
+    }
 
     if (!user) {
       return res
@@ -38,7 +51,7 @@ const authMiddleware = async (req, res, next) => {
     // Attach user details to request object
     req.user = {
       id: user._id.toString(),
-      role: "SUPERADMIN",
+      role: decodedToken.role,
       email: user.email,
     };
 

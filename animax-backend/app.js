@@ -29,12 +29,18 @@ const superAdminRoute = require("./routes/super-admin.route");
 const animeRoute = require("./routes/anime.route");
 const seasonRoute = require("./routes/season.route");
 const episodeRoute = require("./routes/episode.route");
+const userRoute = require("./routes/user.route");
+const watchlistRoute = require("./routes/watchlist.route");
+const watchProgressRoute = require("./routes/watch-progress.route");
 
 // Route Mounting
 app.use("/api/super-admin", superAdminRoute);
 app.use("/api/anime", animeRoute);
 app.use("/api/season", seasonRoute);
 app.use("/api/episode", episodeRoute);
+app.use("/api/user", userRoute);
+app.use("/api/watchlist", watchlistRoute);
+app.use("/api/watch-progress", watchProgressRoute);
 
 // Database Connection and Server Startup
 mongoose

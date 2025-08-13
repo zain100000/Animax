@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+/**
+ * @description Anime model schema
+ */
 const AnimeSchema = new mongoose.Schema(
   {
     animeCover: {
@@ -33,6 +36,11 @@ const AnimeSchema = new mongoose.Schema(
     },
 
     releaseDate: {
+      type: String,
+      required: true,
+    },
+
+    studio: {
       type: String,
       required: true,
     },
