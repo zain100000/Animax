@@ -32,6 +32,7 @@ const episodeRoute = require("./routes/episode.route");
 const userRoute = require("./routes/user.route");
 const watchlistRoute = require("./routes/watchlist.route");
 const watchProgressRoute = require("./routes/watch-progress.route");
+const commentRoute = require("./routes/comment.route");
 
 // Route Mounting
 app.use("/api/super-admin", superAdminRoute);
@@ -41,6 +42,7 @@ app.use("/api/episode", episodeRoute);
 app.use("/api/user", userRoute);
 app.use("/api/watchlist", watchlistRoute);
 app.use("/api/watch-progress", watchProgressRoute);
+app.use("/api/comment", commentRoute);
 
 // Database Connection and Server Startup
 mongoose
