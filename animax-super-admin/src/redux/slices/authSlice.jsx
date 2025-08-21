@@ -14,23 +14,17 @@ export const register = createAsyncThunk(
         formData
       );
 
-      const { token, superAdmin } = response.data;
-
-      if (!superAdmin || !token) {
+      // If backend doesn’t send token/user, just return success + message
+      if (response.data.success) {
+        return { message: response.data.message };
+      } else {
         throw new Error("Invalid register response format");
       }
-
-      const user = {
-        id: superAdmin.id,
-        email: superAdmin.email,
-        userName: superAdmin.userName,
-      };
-
-      localStorage.setItem("authToken", token);
-
-      return { user, token };
     } catch (error) {
-      console.error("Register Error:", error.response?.data || error.message);
+      console.error(
+        "❌ Register Error:",
+        error.response?.data || error.message
+      );
       return rejectWithValue(error.response?.data || { error: error.message });
     }
   }

@@ -49,24 +49,32 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
-      <div className="header-container">
-        <div className="logo">
-          <img src={Logo} alt="Logo" className="logo-img" />
-          <span className="logo-text">CoffeeSpot</span>
-        </div>
-        <nav className="nav">
-          <div className="profile-section">
-            <img src={profilePicture} alt="Profile" className="profile-img" />
-            <Button
-              className="logout-btn"
-              onPress={handleLogout}
-              loading={loading}
-              title="Logout"
-              icon={<i class="fas fa-sign-out-alt"></i>}
-            />
+    <header id="header" className="shadow-sm">
+      <div className="container-fluid">
+        <div className="row align-items-center">
+          {/* Left: Logo */}
+          <div className="col-6 col-md-4 d-flex align-items-center anime-logo">
+            <img src={Logo} alt="Logo" className="logo-img me-2" />
+            <span className="logo-text d-none d-md-inline">Animax</span>
           </div>
-        </nav>
+
+          <div className="col-6 col-md-8 d-flex justify-content-end align-items-center gap-2 gap-md-3">
+            <img
+              src={profilePicture}
+              alt="Profile"
+              className="profile-img anime-avatar"
+            />
+            <div className="d-none d-md-inline-block">
+              <Button
+                className="logout-btn anime-btn"
+                onPress={handleLogout}
+                loading={loading}
+                title="Logout"
+                icon={<i className="fas fa-sign-out-alt"></i>}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </header>
   );

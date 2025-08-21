@@ -129,9 +129,9 @@ const Signin = () => {
                       width={"100%"}
                       onPress={handleSignin}
                       loading={loading}
-                      icon={<i class="fas fa-sign-in-alt"></i>}
+                      icon={<i className="fas fa-sign-in-alt"></i>}
                     />
-                  </div>
+                  </div>                  
                 </form>
               </div>
             </div>
